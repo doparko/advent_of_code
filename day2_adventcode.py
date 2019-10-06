@@ -53,9 +53,28 @@ elif part_select == "2":
     #setting up variable for split up pieces
     sptext = [None] * len(text)
     j = 0
+    ans = [None]
     for spec in text:
         sptext[j] = list(spec)
         j = j + 1
+
+    n = len(sptext[0])
+    en = len(sptext) - 1
+    print(en)
+    for ii in range(n):
+        temp = sptext
+        for jj in range(n):
+            temp[jj].pop(ii)
+        # en = len(temp) - 1
+        for kk in range(en):
+            newtemp = temp
+            trial = newtemp.pop(kk)
+            for e in newtemp:
+                if trial == e:
+                    ans = trial
+                    break
+    print(ans)
+    
 else:
     print("bad input buddy")
     
