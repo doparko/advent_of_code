@@ -16,6 +16,7 @@ filename = "day2_input.txt"
 # Opens and reads file by lines, allows to split line into items of list
 datain = open(filename,'r')
 text = datain.readlines()
+datain.close()
 
 part_select = input("Enter the part that you want to do:")
 
@@ -68,6 +69,7 @@ elif part_select == "2":
             temp[jj].pop(ii)
         # en = len(temp) - 1
         for kk in range(en):
+            print(kk)
             newtemp = temp
             trial = newtemp.pop(kk)
             for e in newtemp:
@@ -79,4 +81,4 @@ elif part_select == "2":
 else:
     print("bad input buddy")
     
-datain.close()
+
