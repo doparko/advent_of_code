@@ -59,6 +59,7 @@ elif part_select == "2":
         j = j + 1
 
     n = len(sptext[0])
+    print(len(sptext))
     en = len(sptext) - 1
     print(en)
     for ii in range(n):
