@@ -56,27 +56,35 @@ elif part_select == "2":
     j = 0
     ans = [None]
     for spec in text:
-        sptext[j] = list(spec)
+        sptext[j] = list(spec[0:26])
         j = j + 1
 
     n = len(sptext[0])
     print("lenght of sptext[0]:",n)
-    en = len(sptext) - 1
-    print("lenght of sptext minus 1:", en)
+    en = len(sptext)
+    print("length of sptext:", en)
+    
     for ii in range(n):
-        temp = sptext[:]
-        for jj in range(n):
+        temp = [None] *en
+        for jj in range(en):
+            temp[jj] = list(sptext[jj])
+            #print(len(temp[jj]))
+            if jj == 0:
+                print("".join(sptext[jj]))
             temp[jj].pop(ii)
+            if jj == 0:
+                print("".join(sptext[jj]))
         # en = len(temp) - 1
         for kk in range(en):
-            # print(kk)
+            #print("k")
             newtemp = temp[:]
             trial = newtemp.pop(kk)
             for e in newtemp:
                 if trial == e:
+                    print("we did it yaaaaaaaaaaaaaay")
                     ans = trial
                     break
-    print(ans)
+    print("your solution is:","".join(ans))
     
 else:
     print("bad input buddy")
