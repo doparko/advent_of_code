@@ -60,17 +60,17 @@ elif part_select == "2":
         j = j + 1
 
     n = len(sptext[0])
-    print(len(sptext))
+    print("lenght of sptext[0]:",n)
     en = len(sptext) - 1
-    print(en)
+    print("lenght of sptext minus 1:", en)
     for ii in range(n):
-        temp = sptext
+        temp = sptext[:]
         for jj in range(n):
             temp[jj].pop(ii)
         # en = len(temp) - 1
         for kk in range(en):
-            print(kk)
-            newtemp = temp
+            # print(kk)
+            newtemp = temp[:]
             trial = newtemp.pop(kk)
             for e in newtemp:
                 if trial == e:
