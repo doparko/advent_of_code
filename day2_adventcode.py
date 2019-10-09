@@ -68,15 +68,8 @@ elif part_select == "2":
         temp = [None] *en
         for jj in range(en):
             temp[jj] = list(sptext[jj])
-            #print(len(temp[jj]))
-            if jj == 0:
-                print("".join(sptext[jj]))
             temp[jj].pop(ii)
-            if jj == 0:
-                print("".join(sptext[jj]))
-        # en = len(temp) - 1
         for kk in range(en):
-            #print("k")
             newtemp = temp[:]
             trial = newtemp.pop(kk)
             for e in newtemp:
