@@ -59,53 +59,34 @@ for ii in range(datlen):
         yd = np.linspace(1,1,ylength)
         xmat,ymat = np.meshgrid(xd,yd)
         fabric[r:r+xmat.shape[0],c:c+xmat.shape[1]] += xmat
+        
 
 for xx in range(1000):
         for yy in range(1000):
                 if fabric[xx,yy] > 1:
                         sqcount += 1
-                        
-        
 
-"""
+
+# Part 2
+# Would look for an area that had no overlap and return the id of that one
+
+exfab = ['']*datlen
+
 for ii in range(datlen):
-        xlength = maxx[ii] - minx[ii] + 1
-        xd = np.linspace(minx[ii],maxx[ii],xlength)
-        ylength = maxy[ii] - miny[ii] + 1
-        yd = np.linspace(miny[ii],maxy[ii],ylength)
+        r = topin[ii]
+        c= leftin[ii]
+        xlength = maxx[ii] - minx[ii]
+        xd = np.linspace(1,1,xlength)
+        ylength = maxy[ii] - miny[ii]
+        yd = np.linspace(1,1,ylength)
         xmat,ymat = np.meshgrid(xd,yd)
-        comb = xmat%1000 + ymat*1000
-        combflat = list(comb.flatten())
-        timelist.append(time.time() - start_t)
-        growlen.append(len(growlist))
-        for e in combflat:
-                if (str(growlist).find(" "+str(e)) != -1) or (str(growlist).find("["+str(e)) != -1):
-                        sqcount = sqcount + 1
-                else:
-                        growlist.append(e)
-"""                                               
+        exfab[ii] = fabric[r:r+xmat.shape[0],c:c+xmat.shape[1]]
+        if exfab[ii].sum() == width[ii]*height[ii]:
+                ans = num[ii]
+                break
+
+
+
+                                              
 print("The amount of overlapping fabric in sq inches is:",sqcount)
-
-
-        
-
-##for idim in range(datlen):
-##        miinx = minx[idim] -1
-##        maaxx = maxx[idim] -1
-##        miiny = miny[idim] -1
-##        maaxy = maxy[idim] -1
-##        for x in range(1000):
-##                for y in range(1000):
-##                        if (x >= (miinx and x <= maaxx) and (y >= miiny and y <= maaxy):
-##                                if fabric[x,y] == 0:
-##                                        fabric[x,y] = 1
-##                                elif fabric[x,y] == 1:
-##                                        fabric[x,y] = 1000000
-##print("You have the following amount of sq inch overlaps:",np.floor(fabric.sum()/1000000))
-##        
-
-# Will loop over the width and height
-# leftin and topin are starting positions
-# check cell, if 0 then place a 1, if 1 then place 'x', if x then nothing
-# We then count up the amount of x's we have and that is solution
-
+print("The pattern that has no overlap is:#",ans)
