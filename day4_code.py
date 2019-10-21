@@ -68,7 +68,7 @@ for ea in ordmonth:
             minsleep[onguard] = minsleep[onguard] + (sleepend - sleepstart)
         else:
             minsleep[onguard] = sleepend - sleepstart
-
+slguard = max(minsleep))
 print("guard that sleeps the most is:", max(minsleep))
 
 for el in ordmonth:
