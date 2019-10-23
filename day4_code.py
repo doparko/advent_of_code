@@ -1,6 +1,7 @@
 # day 4 problem
 
 import numpy as np
+import operator
 
 filename = 'day4_input.txt'
 datas = open(filename)
@@ -68,13 +69,36 @@ for ea in ordmonth:
             minsleep[onguard] = minsleep[onguard] + (sleepend - sleepstart)
         else:
             minsleep[onguard] = sleepend - sleepstart
-slguard = max(minsleep))
-print("guard that sleeps the most is:", max(minsleep))
+slguard = max(minsleep.items(), key =operator.itemgetter(1))[0]
+print("guard that sleeps the most is:", slguard)
 
+begtime = []
+endtime = []
 for el in ordmonth:
-    maing = (el.split(" "))[2]
-    if maing == "guard":
-        duty = (el.split(" "))[3]
+    indat = el.split(" ")
+    maing = indat[2]
+    if maing == "Guard":
+        duty = indat[3]
+    elif duty == slguard:
+        if maing == "falls":
+            btime = int(el[15:17])
+        elif maing == "wakes":
+            etime = int(el[15:17]) - 1
+            begtime.append(btime)
+            endtime.append(etime)
+
+freqtime = np.zeros(60)
+
+for tt in range(len(freqtime)):
+    for ii in range(len(begtime)):
+        if tt >= begtime[ii] and tt <= endtime[ii]:
+            freqtime[tt] += 1
+
+comtime = np.argmax(freqtime)
+print("your solution guard number * most commone minute sleept =",comtime*int(slguard[1:]))
+
+            
+        
         
 
 
