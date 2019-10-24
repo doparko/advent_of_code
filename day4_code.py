@@ -72,7 +72,7 @@ for ea in ordmonth:
 slguard = max(minsleep.items(), key =operator.itemgetter(1))[0]
 print("guard that sleeps the most is:", slguard)
 
-amtguard = len(slguard)
+amtguard = len(minsleep)
 
 begtime = []
 endtime = []
@@ -99,9 +99,28 @@ for tt in range(len(freqtime)):
 comtime = np.argmax(freqtime)
 print("your solution guard number * most commone minute sleept =",comtime*int(slguard[1:]))
 
-            
+#Part 2
+guardminutes = {}
+for ent in minsleep:
+    guardminutes[ent] = []
+
+for tt in ordmonth:
+    spinfo = tt.split(" ")
+    hed = spinfo[2]
+    if hed == "Guard":
+        duty = spinfo[3]
+    if hed == "falls":
+        stime = int(tt[15:17])
+    elif hed == "wakes":
+        wtime = int(tt[15:17])
+        guardminutes[duty].extend(list(np.linspace(stime,wtime,wtime-stime+1,dytpe=int)))
         
-        
+def mode(arr):
+    if arr==[]:
+        return None
+    else:
+        return max(set(arr), key-arr.count)
+
 
 
 ##
