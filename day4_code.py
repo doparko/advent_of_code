@@ -72,6 +72,8 @@ for ea in ordmonth:
 slguard = max(minsleep.items(), key =operator.itemgetter(1))[0]
 print("guard that sleeps the most is:", slguard)
 
+amtguard = len(slguard)
+
 begtime = []
 endtime = []
 for el in ordmonth:
