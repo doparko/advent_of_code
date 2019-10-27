@@ -112,16 +112,33 @@ for tt in ordmonth:
     if hed == "falls":
         stime = int(tt[15:17])
     elif hed == "wakes":
-        wtime = int(tt[15:17])
-        guardminutes[duty].extend(list(np.linspace(stime,wtime,wtime-stime+1,dytpe=int)))
+        wtime = int(tt[15:17]) - 1
+        guardminutes[duty].extend(list(np.linspace(stime,wtime,wtime-stime+1,dtype=int)))
         
 def mode(arr):
     if arr==[]:
         return None
     else:
-        return max(set(arr), key-arr.count)
+        return max(set(arr), key=arr.count)
 
+print("most common for guard #1217",mode(guardminutes['#1217']),"it should be:",comtime)
 
+#now to count up the modes to see which one is really the most common
+guardmodes = {}
+for ente in guardminutes:
+    clist = guardminutes[ente]
+    mcom = mode(clist)
+    counting = 0
+    for ii in clist:
+        if ii == mcom:
+            counting += 1
+    guardmodes[ente] = counting
+print(np.argmax(guardmodes))
+print(mode(guardminutes[np.argmax(guardmodes)]))
+
+#print("guard that sleeps same minute most:",np.argmax(guardmodes)," The minute is:",mode(guardminutes[np.argmax(guardmodes)]))
+#print("product of these is:",(np.argmax(guardmodes))[1:]*mode(guardminutes[np.argmax(guardmodes)]))
+        
 
 ##
 ##ins = 6
