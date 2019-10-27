@@ -133,8 +133,11 @@ for ente in guardminutes:
         if ii == mcom:
             counting += 1
     guardmodes[ente] = counting
-print(np.argmax(guardmodes))
-print(mode(guardminutes[np.argmax(guardmodes)]))
+
+#find the speicific guard with most value
+guardmost = max(guardmodes.items(), key=operator.itemgetter(1))[0]
+print(guardmost)
+print("The amount for common minute times the guard:",mode(guardminutes[guardmost])*int(guardmost[1:]))
 
 #print("guard that sleeps same minute most:",np.argmax(guardmodes)," The minute is:",mode(guardminutes[np.argmax(guardmodes)]))
 #print("product of these is:",(np.argmax(guardmodes))[1:]*mode(guardminutes[np.argmax(guardmodes)]))
