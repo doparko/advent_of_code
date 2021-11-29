@@ -1,2 +1,2 @@
-# advent_of_code 2018 problems
+# advent_of_code problems
 ## doparko
