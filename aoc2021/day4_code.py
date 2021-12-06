@@ -29,11 +29,11 @@
 # 22 11 13  6  5
 #  2  0 12  3  7
 
-
+import re
 import numpy as np
 import math
-filename = 'day4_inputsample.txt'
-#filename = 'day4_input.txt'
+#filename = 'day4_inputsample.txt'
+filename = 'day4_input.txt'
 datin = open(filename)
 datinss = datin.read()
 datin.close()
@@ -46,13 +46,102 @@ def bingopos(index):
     column = index%5
     return row,column
 
-# Bingo calling numbers
-binum = datas[0]
-boards = [None]*(len(datas)-1)
-# Bingo boards
-# First indicie = bingo board
-# Second        = indicie location
-for i in range(len(datas)-1):
-    boards[i] = datas[i+1].split('\n')
+# Function to plot on bingo card
+def bingoplot(card,number):
+    try:
+        card[card.index(number)] = "X"
+    except:
+        pass
+    return card
+
+# Check bingo function
+def checkbingo(card):
+    # Checking horizontals
+    # Horizontals index 0 - 4, 5 - 9, and so on till 20 - 24
+    shift = 5
+    for a in range(5):
+        if card[0+a*shift] == card[1+a*shift] == card[2+a*shift] == card[3+a*shift] == card[4+a*shift] == 'X':
+            return True
+    # Checking Verticals
+    # Verticals index [0,5,10,15,20] , [1,6,11,16,21] .... [4,9,14,19,24]
+    for b in range(5):
+        if card[0+b] == card[5+b] == card[10+b] == card[15+b] == card[20+b] == 'X':
+            return True
+    return False
+
+# Removes blotted values and sums the remaining
+def sumremain(card):
+    count = 0
+    for e in card:
+        if e != 'X':
+            count+= int(e)
+    return count
+
+# Bingo numbers being called
+callnum = re.findall('\d{1,2}',datas[0])
+
+# Bingo cards
+numcards = len(datas) - 1
+bincards = [None]*numcards
+
+
+# Getting all the cards their on index in this list and making them one dimension flat
+# Can get the actual position by running bingopos function to get row/column
+for i in range(len(bincards)):
+    bincards[i] = re.findall('\d{1,2}',datas[i+1])   # The first element in datas are the numbers called so we skip ahead
+
+bingo = 0
+for m in callnum:
+    for n in range(len(bincards)):
+        bincards[n] = bingoplot(bincards[n],m)
+        if checkbingo(bincards[n]):
+            bingo = True
+            break
+    if bingo:
+        break
+
+# Now that we left on the winning bingo card and number, lets comput sum of remaining numbers
+# and multiply by the last called number
+
+# Sum of remining not blotted values
+sumbingo = sumremain(bincards[n])
+
+# Product of last number and sum
+product1 = int(m)*sumbingo
+
+print('The answer to part 1 is: ',product1)
+
+# Part 2 we want to take the card that wins last
+# Approach, do the same thing but instead we remove a card once it gets a bingo unless it is the last one
+
+bingo2 = 0
+number_of_bingos = 0
+already_bingo = []
+for m in callnum:
+    for n in range(len(bincards)):
+        try:
+            already_bingo.index(str(n))
+            wall = False
+        except:
+            wall = True
+        if wall:   
+            bincards[n] = bingoplot(bincards[n],m)
+            if checkbingo(bincards[n]):
+                number_of_bingos +=1
+                already_bingo.append(str(n))
+                if number_of_bingos == len(bincards):
+                    bingo2 = True
+                    break
+    if bingo2:
+        break
+
+# Sum of remining not blotted values
+sumbingo2 = sumremain(bincards[n])
+
+# Product of last number and sum
+product2 = int(m)*sumbingo2
+
+print('The answer to part 2 is: ',product2)
+
 
         
