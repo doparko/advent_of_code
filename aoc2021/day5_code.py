@@ -1,4 +1,4 @@
-# AOC 2021 Day 
+# AOC 2021 Day 5
 # Chris O
 #
 # Goal use coordinates to create line segments that are vertical or horizontal
