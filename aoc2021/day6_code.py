@@ -31,16 +31,18 @@ import matplotlib.pyplot as plt
 import re
 import numpy as np
 import math
-filename = 'day6_inputsample.txt'
-#filename = 'day6_input.txt'
+#filename = 'day6_inputsample.txt'
+filename = 'day6_input.txt'
 datin = open(filename)
 datinss = datin.read()
 datin.close()
 
 blahdata = datinss.split(',')
 data = [None]*len(blahdata)
+data2 = [None]*len(blahdata)
 for x in range(len(blahdata)):
     data[x] = int(blahdata[x])
+    data2[x] = int(blahdata[x])
 
 def fishloop(flist):
     tmp = []
@@ -52,21 +54,44 @@ def fishloop(flist):
             tmp.append(e-1)
     return tmp
         
-# # run loop to iterate 80 days
-# for i in range(80):
-#     data = fishloop(data)
+# run loop to iterate 80 days
+for i in range(80):
+    data = fishloop(data)
     
-# numfish = len(data)
-# print('Part 1, after 80 days there are ',numfish,' fish')
+numfish = len(data)
+print('Part 1, after 80 days there are ',numfish,' fish')
 
 #Part 2
-days =[]
-fishnum = []
-for j in range(8):
-    temp = data
-    for i in range((j+1)*10):
-        temp = fishloop(temp)
-    days.append((j+1)*10)
-    fishnum.append(len(temp))
+# New approach, I shoud put the amount of fish per category of days (0,1,2,3,4,5,6,7,8)
+# and having the list slowly move to the left with the leftmost one creating new fish 
+# at day 8 and moving them to day 6
+# be careful not to not to move day 8 fish on first day
 
-plt.plot(days,fishnum)
+days = 256
+
+# number of fish per day
+fishgroup = [0]*9
+
+for j in data2:
+    fishgroup[j] +=1
+    
+for k in range(days):
+    temp = fishgroup.pop(0)
+    fishgroup[6] += temp
+    fishgroup.append(temp)
+    
+print("Part 2, after 256 days there are ",sum(fishgroup)," fish")
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
