@@ -22,13 +22,14 @@ import matplotlib.pyplot as plt
 import re
 import numpy as np
 import math
-filename = 'day9_inputsample.txt'
+#filename = 'day9_inputsample.txt'
 filename = 'day9_input.txt'
 datin = open(filename)
 datinss = datin.read()
 datin.close()
 
 datas = datinss.split('\n')
+
 
 def myindex(shape,x,y):
     groups = []
@@ -43,21 +44,7 @@ def myindex(shape,x,y):
     if y > 0:
         groups.append((x,y-1))
     return groups
-        
-def minindex(valmap,x,y):
-    indicies = myindex(np.shape(valmap),x,y)
-    #indicies = indicies + [(x,y)]
-    minvalue = valmap[x,y]
-    minind = (x,y)
-    for m in indicies:
-        if minvalue > valmap[m] or minvalue == 9:
-            minvalue = valmap[m]
-            minind = m
-    #print('Minvalue is: ',minvalue,' , min index is: ',minind)
-    if minvalue == valmap[x,y]:
-        return minind
-    else:
-        return minindex(valmap,minind[0],minind[1])
+
 
 columns = len(datas[0])
 rows = len(datas)
@@ -69,14 +56,41 @@ for i in range(rows):
         
 # list with the indicies of the miniumns, do be careful not to include duplicates
 minpoints = []
+neighcount = 0
+for m in range(rows):
+    for n in range(columns):
+        neighbors = myindex((rows,columns),m,n)
+        neighcount+=len(neighbors)
+        #print('number of neighbors: ',len(neighbors),' , count of total neighbors: ',neighcount)
+        minpoints.append((m,n))
+        for p in neighbors:
+            if field[p] < field[m,n] or field[m,n] == 9:
+                minpoints.pop(-1)
+                break
 
-for a in range(rows):
-    for b in range(columns):
-        temp = minindex(field,a,b)
-        if temp not in minpoints:
-            minpoints.append(temp)
+# Counting for part 1
 count1 = 0
-for k in minpoints:
-    count1+= 1 + field[k]
+
+for q in minpoints:
+    count1+= (1 + field[q])
     
-print('Part 1 , sum of all low points plus one for each is: ',count1)
+print('Part 1 mins plus 1 for each is: ', count1)
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
