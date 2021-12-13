@@ -50,7 +50,7 @@ def minindex(valmap,x,y):
     minvalue = valmap[x,y]
     minind = (x,y)
     for m in indicies:
-        if minvalue > valmap[m] or minvalue == 9:
+        if minvalue > valmap[m]:
             minvalue = valmap[m]
             minind = m
     #print('Minvalue is: ',minvalue,' , min index is: ',minind)
@@ -69,14 +69,27 @@ for i in range(rows):
         
 # list with the indicies of the miniumns, do be careful not to include duplicates
 minpoints = []
-
+basincounts = {}
 for a in range(rows):
     for b in range(columns):
-        temp = minindex(field,a,b)
-        if temp not in minpoints:
-            minpoints.append(temp)
+        if field[a,b] != 9:
+            temp = minindex(field,a,b)
+            if temp not in minpoints:
+                minpoints.append(temp)
+                basincounts[temp] = 1
+            else:
+                basincounts[temp]+=1
+
+# Part 1 counting minpoints
 count1 = 0
 for k in minpoints:
     count1+= 1 + field[k]
+
+# for part 2 getting top 3 basins
+basinvalues = sorted(basincounts.values())
+max1,max2,max3 = basinvalues[-1],basinvalues[-2],basinvalues[-3]
+count2 = max1*max2*max3
     
+
 print('Part 1 , sum of all low points plus one for each is: ',count1)
+print('Part 2 giving product of top 3 basins is: ',count2)
