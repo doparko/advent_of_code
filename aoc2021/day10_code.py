@@ -1,7 +1,8 @@
 # AOC 2021 Day 10
 # Chris O
 #
-# Goal 
+# Goal is to find corrupted lines in the string, get score for those specific types of
+# corruptions. Part 2 has you complete this lines and again find score with that.
 
 #Example
 
